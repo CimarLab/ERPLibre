@@ -377,6 +377,75 @@ image_diff_base_website:
 	#./script/manifest/compare_backup.py --backup_file_1 ./image_db/erplibre_base.zip --backup_file_2 ./image_db/erplibre_website.zip
 	./script/manifest/compare_backup.py --backup_1 erplibre_base --backup_2 erplibre_website
 
+#############################
+#  Accorderie installation  #
+#############################
+.PHONY: accorderie_install_migrate_mysql
+accorderie_install_migrate_mysql:
+	./script/db_restore.py --database code_generator_accorderie_base --image code_generator_accorderie_base
+	-rm ./addons/TechnoLibre_odoo_accorderie/accorderie_migrate_mysql/.cache
+	./script/addons/install_addons_dev.sh code_generator_accorderie_base accorderie_migrate_mysql
+
+.PHONY: accorderie_install_accorderie_canada
+accorderie_install_accorderie_canada:
+	./script/db_restore.py --database accorderie
+	./script/addons/install_addons.sh accorderie accorderie_canada
+
+.PHONY: accorderie_install_accorderie_canada_ddb
+accorderie_install_accorderie_canada_ddb:
+	./script/db_restore.py --database accorderie
+	./script/addons/install_addons.sh accorderie accorderie_canada_ddb
+
+.PHONY: accorderie_install_accorderie_canada_old_view
+accorderie_install_accorderie_canada_old_view:
+	./script/db_restore.py --database template
+	./script/addons/install_addons.sh template accorderie_canada_old_view
+
+.PHONY: accorderie_install_template_accorderie_canada
+accorderie_install_template_accorderie_canada:
+	./script/db_restore.py --database template
+	./script/addons/install_addons_dev.sh template code_generator_template_accorderie_canada
+
+.PHONY: accorderie_install_template_accorderie_canada_ddb
+accorderie_install_template_accorderie_canada_ddb:
+	./script/db_restore.py --database template
+	./script/code_generator/search_class_model.py --quiet -d addons/TechnoLibre_odoo_accorderie/accorderie_canada_ddb -t addons/TechnoLibre_odoo_accorderie/code_generator_template_accorderie_canada_ddb
+	./script/maintenance/black.sh ./addons/TechnoLibre_odoo_accorderie/code_generator_template_accorderie_canada_ddb
+	./script/addons/install_addons_dev.sh template accorderie_canada_ddb
+	./script/addons/install_addons_dev.sh template code_generator_template_accorderie_canada_ddb
+
+.PHONY: accorderie_install_template_accorderie_canada_old_view
+accorderie_install_template_accorderie_canada_old_view:
+	./script/db_restore.py --database template
+	./script/addons/install_addons_dev.sh template code_generator_template_accorderie_canada_old_view
+
+.PHONY: accorderie_install_code_generator_accorderie_canada
+accorderie_install_code_generator_accorderie_canada:
+	./script/db_restore.py --database code_generator
+	./script/addons/install_addons_dev.sh code_generator code_generator_accorderie_canada
+
+.PHONY: accorderie_install_code_generator_accorderie_canada_ddb
+accorderie_install_code_generator_accorderie_canada_ddb:
+	./script/db_restore.py --database code_generator
+	./script/addons/install_addons_dev.sh code_generator code_generator_accorderie_canada_ddb
+
+.PHONY: accorderie_install_code_generator_migrator_accorderie_canada_ddb
+accorderie_install_code_generator_migrator_accorderie_canada_ddb:
+	./script/db_restore.py --database code_generator
+	./addons/TechnoLibre_odoo_accorderie/script/restore_database_accorderie.sh
+	./script/addons/install_addons_dev.sh code_generator code_generator_portal
+	./script/addons/install_addons_dev.sh code_generator code_generator_migrator_accorderie_canada_ddb
+
+.PHONY: accorderie_install_code_generator_accorderie_canada_old_view
+accorderie_install_code_generator_accorderie_canada_old_view:
+	./script/db_restore.py --database code_generator
+	./script/addons/install_addons_dev.sh code_generator code_generator_accorderie_canada_old_view
+
+.PHONY: accorderie_setup_migrate_database
+accorderie_setup_migrate_database:
+	./script/db_restore.py --database code_generator_db_servers
+	./script/addons/install_addons_dev.sh code_generator_db_servers code_generator_db_servers
+
 #########################
 #  Addons installation  #
 #########################
@@ -685,6 +754,10 @@ format_erplibre_addons:
 	./script/maintenance/black.sh ./addons/ERPLibre_erplibre_themes_addons/
 	#./script/maintenance/prettier_xml.sh ./addons/ERPLibre_erplibre_themes_addons/
 
+.PHONY: format_accorderie
+format_accorderie:
+	./script/maintenance/black.sh ./addons/TechnoLibre_odoo_accorderie
+
 .PHONY: format_code_generator_template
 format_code_generator_template:
 	.venv/bin/isort --profile black -l 79 ./addons/TechnoLibre_odoo-code-generator-template/
@@ -848,6 +921,12 @@ config_gen_all:
 .PHONY: config_gen_code_generator
 config_gen_code_generator:
 	./script/git_repo_update_group.py --group base,code_generator
+	./script/generate_config.sh
+
+# generate config repo accorderie
+.PHONY: config_gen_accorderie
+config_gen_accorderie:
+	./script/git_repo_update_group.py --group base,code_generator,accorderie
 	./script/generate_config.sh
 
 # generate config repo image_db
