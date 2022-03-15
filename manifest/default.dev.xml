@@ -23,7 +23,8 @@
   <remote name="openeducat" fetch="https://github.com/ERPLibre/"/>
   <remote name="pledra" fetch="https://github.com/ERPLibre/"/>
   <remote name="tegin" fetch="https://github.com/ERPLibre/"/>
-  
+  <remote name="CimarLab" fetch="https://github.com/CimarLab/"/>
+
   <default remote="ERPLibre" revision="12.0" sync-j="4" sync-c="true"/>
   
   <project name="ERPLibre_image_db.git" path="image_db" remote="ERPLibre" revision="12.0" clone-depth="1" groups="base"/>
@@ -47,6 +48,7 @@
   <project name="bank-statement-import.git" path="addons/OCA_bank-statement-import" remote="OCA" groups="addons"/>
   <project name="brand.git" path="addons/OCA_brand" remote="OCA" groups="addons"/>
   <project name="business-requirement.git" path="addons/OCA_business-requirement" remote="OCA" groups="addons"/>
+  <project name="cimarlab_erplibre_addons.git" path="addons/CimarLab_cimarlab_erplibre_addons" remote="CimarLab" groups="addons,base"/>
   <project name="commission.git" path="addons/OCA_commission" remote="OCA" groups="addons"/>
   <project name="community-data-files.git" path="addons/OCA_community-data-files" remote="OCA" groups="addons"/>
   <project name="connector-ecommerce.git" path="addons/OCA_connector-ecommerce" remote="OCA" groups="addons"/>
