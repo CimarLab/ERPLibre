@@ -972,6 +972,12 @@ config_gen_image_db:
 	./script/git_repo_update_group.py --group base,image_db
 	./script/generate_config.sh
 
+# generate config repo cimarlab
+.PHONY: config_gen_cimarlab
+config_gen_cimarlab:
+	./script/git_repo_update_group.py --group base,code_generator,cimarlab
+	./script/generate_config.sh
+
 ##########
 #  I18n  #
 ##########

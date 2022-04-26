@@ -48,7 +48,7 @@
   <project name="bank-statement-import.git" path="addons/OCA_bank-statement-import" remote="OCA" groups="addons"/>
   <project name="brand.git" path="addons/OCA_brand" remote="OCA" groups="addons"/>
   <project name="business-requirement.git" path="addons/OCA_business-requirement" remote="OCA" groups="addons"/>
-  <project name="cimarlab_erplibre_addons.git" path="addons/CimarLab_cimarlab_erplibre_addons" remote="CimarLab" groups="addons,base"/>
+  <project name="cimarlab_erplibre_addons.git" path="addons/CimarLab_cimarlab_erplibre_addons" remote="CimarLab" groups="addons,base,cimarlab"/>
   <project name="commission.git" path="addons/OCA_commission" remote="OCA" groups="addons"/>
   <project name="community-data-files.git" path="addons/OCA_community-data-files" remote="OCA" groups="addons"/>
   <project name="connector-ecommerce.git" path="addons/OCA_connector-ecommerce" remote="OCA" groups="addons"/>
